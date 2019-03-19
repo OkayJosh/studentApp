@@ -16,7 +16,7 @@ class HomepageView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['Students'] = Student.objects.order_by('id')
+        context['students'] = Student.objects.order_by('id')
         return context
 
 
@@ -25,7 +25,7 @@ class HomepageView(TemplateView):
 ##########################################################################
 
 class StudentDetailView(DetailView):
-    model = Collection
+    model = Student
     template_name = 'student/student_detail.html'
 
     def get_context_data(self, **kwargs):
@@ -34,31 +34,25 @@ class StudentDetailView(DetailView):
 
 
 class StudentCreate(CreateView):
-    model = Collection
+    model = Student
     template_name = 'student/student_create.html'
     form_class = StudentForm
     success_url = None
 
     def get_context_data(self, **kwargs):
-        data = super(CollectionCreate, self).get_context_data(**kwargs)
+        data = super(StudentCreate, self).get_context_data(**kwargs)
         if self.request.POST:
-            data['parent'] = ParentFormSet(self.request.POST)
             data['book'] = BookFormSet(self.request.POST)
         else:
-            data['parent'] = ParentFormSet(self.request.POST)
-            data['book'] = BookFormSet(self.request.POST)
+            data['book'] = BookFormSet()
         return data
 
     def form_valid(self, form):
         context = self.get_context_data()
-        parent = context['parent']
         book = context['book']
         with transaction.atomic():
             form.instance.created_by = self.request.user
             self.object = form.save()
-            if parent.is_valid():
-                parent.instance = self.object
-                parent.save()
             if book.is_valid():
                 book.instance = self.object
                 book.save()
@@ -81,23 +75,17 @@ class StudentUpdate(UpdateView):
     def get_context_data(self, **kwargs):
         data = super(StudentUpdate, self).get_context_data(**kwargs)
         if self.request.POST:
-            data['parent'] = ParentFormSet(self.request.POST)
-            data['book'] = BookFormSet(self.request.POST)
+            data['book'] = BookFormSet(self.request.POST, instance=self.object)
         else:
-            data['parent'] = ParentFormSet(instance=self.object)
             data['book'] = BookFormSet(instance=self.object)
         return data
 
     def form_valid(self, form):
         context = self.get_context_data()
-        parent = context['parent']
         book = context['book']
         with transaction.atomic():
             form.instance.created_by = self.request.user
             self.object = form.save()
-            if parent.is_valid():
-                parent.instance = self.object
-                parent.save()
             if book.is_valid():
                 book.instance = self.object
                 book.save()

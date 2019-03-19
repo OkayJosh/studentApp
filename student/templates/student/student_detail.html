@@ -6,20 +6,17 @@
         </div>
         <div class="card-body">
         <table class="table">
-        <!--for inline added parent-->
-        {% if object.has_parent %}
-        {% for parent in object.has_parent.all %}
-        <tr>
-            <th>Name @{{parent.name}}</th>
-            <td>{{parent.pics}}</td>
-        </tr>
-        {% endfor %}
-        {% endif %}
-        <!--end-->
 
-        <!--for inline added parent-->
+    	{% if object.name %}
+    	<tr>
+            <th>Name</th>
+            <td>{{ object.name }}</td>
+        </tr>
+    	{% endif %}
+
+        <!--for inline added book-->
         {% if object.has_books %}
-        {% for book in object.has_parent.all %}
+        {% for book in object.has_book.all %}
         <tr>
             <th>Name @{{book.name}}</th>
             <td>{{book.ISBN}}</td>
@@ -28,12 +25,6 @@
         {% endif %}
         <!--end-->
 
-    	{% if object.name %}
-    	<tr>
-            <th>Name</th>
-            <td>{{ object.name }}</td>
-        </tr>
-    	{% endif %}
     	{% if object.pics %}
     	<tr>
             <th>Picture</th>

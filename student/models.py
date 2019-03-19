@@ -22,8 +22,7 @@ class Student(models.Model):
     date_of_birth = models.DateField(null=True)
 
     def __str__(self):
-        return '%s %s %s' % (self.first_name, self.middle_name, 
-                        self.last_name)
+        return self.name
 
 class Parent(models.Model):
 
@@ -41,14 +40,13 @@ class Parent(models.Model):
     date_of_birth = models.DateField(blank=True, null=True)
 
     def __str__(self):
-        return '%s %s %s' % (self.first_name, self.middle_name,
-                         self.last_name)
+        return '%s' % (self.name)
 
 class Book(models.Model):
     owned_by = models.ForeignKey(Student, on_delete=models.CASCADE, 
                         related_name="has_books", null=True, blank=True)
     name = models.CharField(max_length=255)
-    ISDN = models.CharField(max_length=255, null=True, default="ISDN")
+    ISBN = models.CharField(max_length=255, null=True, default="ISDN")
     purpose = models.CharField(max_length=255, null=True)
 
     def __str__(self):

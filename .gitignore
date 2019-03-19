@@ -1,2 +1,4 @@
 /sim
 *.pyc
+/student/migrations/
+/db.sqlite3

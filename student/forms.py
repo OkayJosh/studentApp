@@ -11,14 +11,14 @@ class ParentForm(forms.ModelForm):
         model = Parent
         exclude = ()
 
-ParentFormSet = inlineformset_factory(
-    Student, Parent, form=ParentForm,
-    fields=['name', 'pics', 'address', 'city',
-            'local_government_origin',
-            'local_government_residence',
-            'state_origin','state_residence',
-            'date_of_birth'], can_delete=False
-)
+# ParentFormSet = inlineformset_factory(
+#     Student, Parent, form=ParentForm,
+#     fields=['name', 'pics', 'address', 'city',
+#             'local_government_origin',
+#             'local_government_residence',
+#             'state_origin','state_residence',
+#             'date_of_birth'], can_delete=False
+# )
 
 class BookForm(forms.ModelForm):
 
@@ -58,11 +58,8 @@ class StudentForm(forms.ModelForm):
                 Field('state_residence'),
                 Field('date_of_birth'),
                 HTML("<br>"),
-                Fieldset('Link Parent',
-                    Formset('parent')),
-                HTML("<br>"),
                 Fieldset('Add books',
-                    Formset('books')),
+                    Formset('book')),
                 ButtonHolder(Submit('submit', 'Save')),
                 )
             )
