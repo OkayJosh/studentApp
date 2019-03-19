@@ -1,0 +1,90 @@
+{% extends "student/base.html" %}
+{% block content %}
+<div class="card">
+        <div class="card-header">
+            <h1><b>Student ID {{ object }}</b></h1>
+        </div>
+        <div class="card-body">
+        <table class="table">
+        <!--for inline added parent-->
+        {% if object.has_parent %}
+        {% for parent in object.has_parent.all %}
+        <tr>
+            <th>Name @{{parent.name}}</th>
+            <td>{{parent.pics}}</td>
+        </tr>
+        {% endfor %}
+        {% endif %}
+        <!--end-->
+
+        <!--for inline added parent-->
+        {% if object.has_books %}
+        {% for book in object.has_parent.all %}
+        <tr>
+            <th>Name @{{book.name}}</th>
+            <td>{{book.ISBN}}</td>
+        </tr>
+        {% endfor %}
+        {% endif %}
+        <!--end-->
+
+    	{% if object.name %}
+    	<tr>
+            <th>Name</th>
+            <td>{{ object.name }}</td>
+        </tr>
+    	{% endif %}
+    	{% if object.pics %}
+    	<tr>
+            <th>Picture</th>
+            <td>{{ object.pics }}</td>
+        </tr>
+    	{% endif %}
+    	{% if object.address %}
+    	<tr>
+            <th>Address</th>
+            <td>{{ object.address }}</td>
+        </tr>
+    	{% endif %}
+    	{% if object.city %}
+    	<tr>
+            <th>City</th>
+            <td>{{ object.city }}</td>
+        </tr>
+    	{% endif %}
+    	{% if object.local_government_origin %}
+    	<tr>
+            <th>Local Government Origin</th>
+            <td>{{ object.local_government_origin }}</td>
+        </tr>
+    	{% endif %}
+    	{% if object.local_government_residence %}
+    	<tr>
+            <th>Local Government Residence</th>
+            <td>{{ object.local_government_residence }}</td>
+        </tr>
+    	{% endif %}
+    	{% if object.state_origin %}
+    	<tr>
+            <th>State of Origin</th>
+            <td>{{ object.state_origin }}</td>
+        </tr>
+    	{% endif %}
+    	{% if object.state_residence %}
+    	<tr>
+            <th>State of Residence</th>
+            <td>{{ object.state_residence }}</td>
+        </tr>
+    	{% endif %}
+    	{% if object.date_of_birth %}
+    	<tr>
+            <th>Date of Birth</th>
+            <td>{{ object.date_of_birth }}</td>
+        </tr>
+    	{% endif %}
+        </table>
+        <a class="btn btn-outline-info" href="{% url 'student:student_update' pk=object.id %}">Update</a>
+        <a class="btn btn-outline-danger" href="{% url 'student:student_delete' pk=object.id %}">Delete</a>
+        </div>
+</div>
+{% endblock content %}
