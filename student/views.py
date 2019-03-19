@@ -21,7 +21,7 @@ class HomepageView(TemplateView):
 
 
 ##########################################################################
-#                           Collection views                             #
+#                          Student views                             #
 ##########################################################################
 
 class StudentDetailView(DetailView):
@@ -35,7 +35,7 @@ class StudentDetailView(DetailView):
 
 class StudentCreate(CreateView):
     model = Collection
-    template_name = 'student/collection_create.html'
+    template_name = 'student/student_create.html'
     form_class = StudentForm
     success_url = None
 
@@ -73,39 +73,45 @@ class StudentCreate(CreateView):
     #     return super(CollectionCreate, self).dispatch(*args, **kwargs)
 
 
-class CollectionUpdate(UpdateView):
-    model = Collection
-    form_class = CollectionForm
-    template_name = 'mycollections/collection_create.html'
+class StudentUpdate(UpdateView):
+    model = Student
+    form_class = StudentForm
+    template_name = 'student/student_create.html'
 
     def get_context_data(self, **kwargs):
-        data = super(CollectionUpdate, self).get_context_data(**kwargs)
+        data = super(StudentUpdate, self).get_context_data(**kwargs)
         if self.request.POST:
-            data['titles'] = CollectionTitleFormSet(self.request.POST, instance=self.object)
+            data['parent'] = ParentFormSet(self.request.POST)
+            data['book'] = BookFormSet(self.request.POST)
         else:
-            data['titles'] = CollectionTitleFormSet(instance=self.object)
+            data['parent'] = ParentFormSet(instance=self.object)
+            data['book'] = BookFormSet(instance=self.object)
         return data
 
     def form_valid(self, form):
         context = self.get_context_data()
-        titles = context['titles']
+        parent = context['parent']
+        book = context['book']
         with transaction.atomic():
             form.instance.created_by = self.request.user
             self.object = form.save()
-            if titles.is_valid():
-                titles.instance = self.object
-                titles.save()
-        return super(CollectionUpdate, self).form_valid(form)
+            if parent.is_valid():
+                parent.instance = self.object
+                parent.save()
+            if book.is_valid():
+                book.instance = self.object
+                book.save()
+        return super(StudentUpdate, self).form_valid(form)
 
     def get_success_url(self):
-        return reverse_lazy('mycollections:collection_detail', kwargs={'pk': self.object.pk})
+        return reverse_lazy('student:student_detail', kwargs={'pk': self.object.pk})
 
     # @method_decorator(login_required)
     # def dispatch(self, *args, **kwargs):
     #     return super(CollectionUpdate, self).dispatch(*args, **kwargs)
 
 
-class CollectionDelete(DeleteView):
-    model = Collection
-    template_name = 'mycollections/confirm_delete.html'
-    success_url = reverse_lazy('mycollections:homepage')
+class StudentDelete(DeleteView):
+    model = Student
+    template_name = 'student/confirm_delete.html'
+    success_url = reverse_lazy('student:homepage')

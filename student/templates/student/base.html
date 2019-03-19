@@ -39,7 +39,7 @@
           {% if students %}
           {% for object in students %}
             <li>
-                <a href="{% url 'mycollections:collection_detail' pk=object.pk %}">Student ID {{ object }}</a>
+                <a href="{% url 'student:student_detail' pk=object.pk %}">Student ID {{ object }}</a>
             </li>
           {% endfor %}
           {% else %}
