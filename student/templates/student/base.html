@@ -43,13 +43,13 @@
           {% if students %}
           {% for student in students %}
             <li>
-                <a class="mr-3" href="{% url 'student:student_detail' pk=student.pk %}"> {{ student }} </a>
-                <div class=" my-3"><a href= "{% url 'student:student_detail' pk=student.pk%}"><i class="material-icons">add_circle</i></a>literacy
+                <a class=" my-3" href="{% url 'student:student_detail' pk=student.pk %}"> {{ student }} </a>
+                {% comment %} <div class=" my-3"><a href= "{% url 'student:student_detail' pk=student.pk%}"><i class="material-icons">add_circle</i></a>literacy
                 <a href= "{% url 'student:student_detail' pk=student.pk%}"><i class="material-icons">add_circle</i></a>Numeracy
                 <a href= "{% url 'student:student_detail' pk=student.pk%}"><i class="material-icons">add_circle</i></a>Attendance
                 <a href= "{% url 'student:student_detail' pk=student.pk%}"><i class="material-icons">add_circle</i></a>Incentive
                 <a href= "{% url 'student:student_detail' pk=student.pk%}"><i class="material-icons">add_circle</i></a>Appriasal
-                <a href= "{% url 'student:student_detail' pk=student.pk%}"><i class="material-icons">add_circle</i></a>Posting </div>
+                <a href= "{% url 'student:student_detail' pk=student.pk%}"><i class="material-icons">add_circle</i></a>Posting </div> {% endcomment %}
             </li>
           {% endfor %}
           {% else %}
