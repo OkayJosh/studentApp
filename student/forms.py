@@ -11,14 +11,26 @@ class ParentForm(forms.ModelForm):
         model = Parent
         exclude = ()
 
-# ParentFormSet = inlineformset_factory(
-#     Student, Parent, form=ParentForm,
-#     fields=['name', 'pics', 'address', 'city',
-#             'local_government_origin',
-#             'local_government_residence',
-#             'state_origin','state_residence',
-#             'date_of_birth'], can_delete=False
-# )
+    def __init__(self, *args, **kwargs):
+        super(ParentForm, self).__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_tag = True
+        self.helper.form_class = 'card bg-primary'
+        self.helper.label_class = 'form'
+        self.helper.field_class = 'col-md-9 mx-1 card-body'
+        self.helper.layout = Layout(
+            Div(
+                Field('name'),
+                Field('pics'),
+                Field('address'),
+                )
+            )
+
+
+ParentFormSet = inlineformset_factory(
+    Student, Parent, form=ParentForm,
+    fields=['name', 'pics', 'address'], can_delete=False
+)
 
 class BookForm(forms.ModelForm):
 
@@ -60,6 +72,9 @@ class StudentForm(forms.ModelForm):
                 HTML("<br>"),
                 Fieldset('Add books',
                     Formset('book')),
+                HTML("<br>"),
+                Fieldset('Add Parent',
+                    Formset('parent')),
                 ButtonHolder(Submit('submit', 'Save')),
                 )
             )

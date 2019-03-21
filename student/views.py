@@ -43,19 +43,25 @@ class StudentCreate(CreateView):
         data = super(StudentCreate, self).get_context_data(**kwargs)
         if self.request.POST:
             data['book'] = BookFormSet(self.request.POST)
+            data['parent'] = ParentFormSet(self.request.POST)
         else:
             data['book'] = BookFormSet()
+            data['parent'] = ParentFormSet()
         return data
 
     def form_valid(self, form):
         context = self.get_context_data()
         book = context['book']
+        parent = context['parent']
         with transaction.atomic():
             form.instance.created_by = self.request.user
             self.object = form.save()
             if book.is_valid():
                 book.instance = self.object
                 book.save()
+            if parent.is_valid():
+                parent.instance = self.object
+                parent.save()
         return super(StudentCreate, self).form_valid(form)
 
     def get_success_url(self):
@@ -76,19 +82,25 @@ class StudentUpdate(UpdateView):
         data = super(StudentUpdate, self).get_context_data(**kwargs)
         if self.request.POST:
             data['book'] = BookFormSet(self.request.POST, instance=self.object)
+            data['parent'] = ParentFormSet(self.request.POST, instance=self.object)
         else:
             data['book'] = BookFormSet(instance=self.object)
+            data['parent'] = ParentFormSet(instance=self.object)
         return data
 
     def form_valid(self, form):
         context = self.get_context_data()
         book = context['book']
+        parent = context['parent']
         with transaction.atomic():
             form.instance.created_by = self.request.user
             self.object = form.save()
             if book.is_valid():
                 book.instance = self.object
                 book.save()
+            if parent.is_valid():
+                parent.instance = self.object
+                parent.save()
         return super(StudentUpdate, self).form_valid(form)
 
     def get_success_url(self):

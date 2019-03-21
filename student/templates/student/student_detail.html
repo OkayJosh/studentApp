@@ -2,28 +2,34 @@
 {% block content %}
 <div class="card">
         <div class="card-header">
-            <h1><b>Student ID {{ object }}</b></h1>
+            <h1><b>Student {{ student }}</b></h1>
         </div>
         <div class="card-body">
         <table class="table">
 
-    	{% if object.name %}
-    	<tr>
-            <th>Name</th>
-            <td>{{ object.name }}</td>
-        </tr>
-    	{% endif %}
-
+{% comment %} 
         <!--for inline added book-->
-        {% if object.has_books %}
-        {% for book in object.has_book.all %}
+        {% if book %}
+        {% for buk in book %}
         <tr>
-            <th>Name @{{book.name}}</th>
-            <td>{{book.ISBN}}</td>
+            <th>Name {{buk.name}}</th>
+            <td>{{buk.ISBN}}</td>
         </tr>
         {% endfor %}
         {% endif %}
         <!--end-->
+
+        <!--for inline added parent-->
+        {% if Parent %}
+        {% for parent in Parent %}
+        <tr>
+            <th>Name @{{parent.name}}</th>
+            <td>{{parent.pics}}</td>
+            <td>{{parent.address}}</td>
+        </tr>
+        {% endfor %}
+        {% endif %}
+        <!--end-->         {% endcomment %}
 
     	{% if object.pics %}
     	<tr>
@@ -74,8 +80,8 @@
         </tr>
     	{% endif %}
         </table>
-        <a class="btn btn-outline-info" href="{% url 'student:student_update' pk=object.id %}">Update</a>
-        <a class="btn btn-outline-danger" href="{% url 'student:student_delete' pk=object.id %}">Delete</a>
+        <a class="btn btn-outline-info" href="{% url 'student:student_update' pk=object.id %}"><i class="material-icons">edit</i></a>
+        <a class="btn btn-outline-danger" href="{% url 'student:student_delete' pk=object.id %}"><i class="material-icons">delete</i></a>
         </div>
 </div>
 {% endblock content %}

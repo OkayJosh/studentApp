@@ -9,6 +9,10 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.0/css/bootstrap.min.css" integrity="sha384-PDle/QlgIONtM1aqA2Qemk5gPOE7wFq8+Em+G/hmo5Iq0CCmYZLv3fVRDJ4MMwEA" crossorigin="anonymous">
 
+<!-- Material icon -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+
     <title>Student, App!</title>
   </head>
   <body>
@@ -33,13 +37,19 @@
       <div class="card">
         <div class="card-header">
         <h1>All Students</h1>
-        <a class="btn btn-outline-primary" href="{% url 'student:student_create' %}" role="button">Create new Student</a>
+        <a class="btn btn-outline-primary" href="{% url 'student:student_create' %}" role="button"><i class="material-icons">create</i></a>
         </div>
         <div class="card-body">
           {% if students %}
-          {% for object in students %}
+          {% for student in students %}
             <li>
-                <a href="{% url 'student:student_detail' pk=object.pk %}">Student ID {{ object }}</a>
+                <a class="mr-3" href="{% url 'student:student_detail' pk=student.pk %}"> {{ student }} </a>
+                <div class=" my-3"><a href= "{% url 'student:student_detail' pk=student.pk%}"><i class="material-icons">add_circle</i></a>literacy
+                <a href= "{% url 'student:student_detail' pk=student.pk%}"><i class="material-icons">add_circle</i></a>Numeracy
+                <a href= "{% url 'student:student_detail' pk=student.pk%}"><i class="material-icons">add_circle</i></a>Attendance
+                <a href= "{% url 'student:student_detail' pk=student.pk%}"><i class="material-icons">add_circle</i></a>Incentive
+                <a href= "{% url 'student:student_detail' pk=student.pk%}"><i class="material-icons">add_circle</i></a>Appriasal
+                <a href= "{% url 'student:student_detail' pk=student.pk%}"><i class="material-icons">add_circle</i></a>Posting </div>
             </li>
           {% endfor %}
           {% else %}
