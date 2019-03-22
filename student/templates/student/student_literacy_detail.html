@@ -1,0 +1,28 @@
+{% extends "student/base.html" %}
+{% block content %}
+<div class="card">
+        <div class="card-header">
+            <h1><b>Literacy</b></h1>
+        </div>
+        <div class="card-body">
+        <table class="table">
+
+
+    	{% if object.literacy %}
+    	<tr>
+            <th>Literacy</th>
+            <td>{{ object.literacy }}</td>
+        </tr>
+    	{% endif %}
+    	{% if object.describe_literacy %}
+    	<tr>
+            <th>Description</th>
+            <td>{{ object.describe_literacy }}</td>
+        </tr>
+    	{% endif %}
+        </table>
+        <a class="btn btn-outline-info" href="{% url 'student:student_literacy_update' pk=object.id %}"><i class="material-icons">edit</i></a>
+        <a class="btn btn-outline-danger" href="{% url 'student:student_literacy_delete' pk=object.id %}"><i class="material-icons">delete</i></a>
+        </div>
+</div>
+{% endblock content %}

@@ -1,0 +1,22 @@
+{% extends "student/base.html" %}
+{% block content %}
+
+    <div class="card">
+    <div class="card-header">
+    <h1>Literacy</h1>
+    <a class="btn btn-outline-primary" href="{% url 'student:student_literacy_create' %}" role="button"><i class="material-icons">create</i></a>
+    </div>
+    <div class="card-body">
+        {% if literacys %}
+        {% for literacy in literacys %}
+        <li>
+            {% comment %} <a class=" my-3" href="{% url 'student:student_literacy_detail' pk=student.pk %}"> {{ literacy }} </a> {% endcomment %}
+        </li>
+        {% endfor %}
+        {% else %}
+        <p>No Students</p>
+        {% endif %}
+    </div>
+    </div>
+
+{% endblock %}

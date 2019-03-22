@@ -44,12 +44,12 @@
           {% for student in students %}
             <li>
                 <a class=" my-3" href="{% url 'student:student_detail' pk=student.pk %}"> {{ student }} </a>
-                {% comment %} <div class=" my-3"><a href= "{% url 'student:student_detail' pk=student.pk%}"><i class="material-icons">add_circle</i></a>literacy
+                <div class=" my-3"><a href= "{% url 'student:student_literacy_base' pk=student.pk%}"><i class="material-icons">add_circle</i></a>literacy
                 <a href= "{% url 'student:student_detail' pk=student.pk%}"><i class="material-icons">add_circle</i></a>Numeracy
                 <a href= "{% url 'student:student_detail' pk=student.pk%}"><i class="material-icons">add_circle</i></a>Attendance
                 <a href= "{% url 'student:student_detail' pk=student.pk%}"><i class="material-icons">add_circle</i></a>Incentive
                 <a href= "{% url 'student:student_detail' pk=student.pk%}"><i class="material-icons">add_circle</i></a>Appriasal
-                <a href= "{% url 'student:student_detail' pk=student.pk%}"><i class="material-icons">add_circle</i></a>Posting </div> {% endcomment %}
+                <a href= "{% url 'student:student_detail' pk=student.pk%}"><i class="material-icons">add_circle</i></a>Posting </div>
             </li>
           {% endfor %}
           {% else %}
